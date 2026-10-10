@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vectra — SVG to PNG Converter | Free Vector to Raster Export</title>
+<meta name="description" content="Vectra is a free SVG to PNG converter. Paste SVG code or upload files, set custom sizes and scale presets, preview on a transparency checkerboard, and batch convert — all in your browser.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif;background:#070b16;color:#e2e8f0}
+  .font-display{font-family:'Space Grotesk',sans-serif}
+  .checker{background-color:#0f172a;background-image:linear-gradient(45deg,#1e293b 25%,transparent 25%),linear-gradient(-45deg,#1e293b 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#1e293b 75%),linear-gradient(-45deg,transparent 75%,#1e293b 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+  .checker-light{background-color:#f8fafc;background-image:linear-gradient(45deg,#cbd5e1 25%,transparent 25%),linear-gradient(-45deg,#cbd5e1 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#cbd5e1 75%),linear-gradient(-45deg,transparent 75%,#cbd5e1 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+  .stage-grid{background-image:radial-gradient(circle at 1px 1px,rgba(56,189,248,.18) 1px,transparent 0);background-size:22px 22px}
+  .preset-btn.active{background:#2563eb;color:#fff;border-color:#38bdf8}
+  details.faq-item summary{cursor:pointer}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an SVG file and why convert it to PNG?","acceptedAnswer":{"@type":"Answer","text":"An SVG is a vector graphic described with XML code, so it stays sharp at any size. A PNG is a raster image made of pixels. You convert SVG to PNG when a platform, document, presentation or app needs a fixed-size pixel image instead of vector code — for example app icons, social previews, slides and email graphics."}},{"@type":"Question","name":"Does Vectra upload my SVG files anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Vectra converts entirely in your browser. Your SVG code and files are never sent to a server, which makes the tool private, fast and suitable for logos, client work and unreleased artwork."}},{"@type":"Question","name":"How do I choose the right output size for my PNG?","acceptedAnswer":{"@type":"Answer","text":"Use 1x for matching the original size, 2x or 3x for crisp retina and presentation use, and the icon presets for app icons and favicons. For print-like sharpness or large banners, choose a larger custom width and keep the aspect ratio locked so the artwork is not stretched."}},{"@type":"Question","name":"Can I preserve transparency in the exported PNG?","acceptedAnswer":{"@type":"Answer","text":"Yes. Leave the background set to Transparent and Vectra keeps the alpha channel from your SVG. The checkerboard preview shows exactly which areas will stay transparent. Choose White, Black or a custom colour only when you want a solid background baked into the PNG."}},{"@type":"Question","name":"Can I convert multiple SVG files at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Upload up to 20 SVG files and they appear in the batch queue. Apply one size and background setting to the whole batch, convert all of them with a single click, then download each PNG individually or step through the queue."}},{"@type":"Question","name":"Why does my converted PNG look blurry or pixelated?","acceptedAnswer":{"@type":"Answer","text":"Blur almost always means the export size is too small for how large the image is being displayed. Re-export at 2x, 3x or a larger custom width. Also check that the original SVG has a viewBox, because without one the browser has to guess the artwork size."}}]}
+</script>
+</head>
+<body class="min-h-screen">
+<header class="sticky top-0 z-50 bg-[#070b16]/90 backdrop-blur border-b border-blue-500/20">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5">
+      <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-display font-bold text-lg shadow-lg shadow-blue-600/30">V</span>
+      <span class="font-display font-700 text-xl tracking-tight text-white">Vectra</span>
+      <span class="hidden sm:inline text-[11px] uppercase tracking-widest text-cyan-300 bg-cyan-400/10 border border-cyan-400/20 rounded-full px-2 py-0.5">SVG → PNG</span>
+    </a>
+    <nav class="flex items-center gap-2 text-sm">
+      <a href="#top" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">Home</a>
+      <a href="https://fixoraa.tech" class="px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="mx-auto max-w-6xl px-4 sm:px-6 pb-10">
+  <section class="text-center pt-8 pb-6">
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">SVG to PNG Converter</h1>
+    <p class="mt-3 text-slate-400 max-w-2xl mx-auto">Paste vector code or drop in files, dial in the exact pixel size, check transparency on the checkerboard stage, and export crisp PNGs — singly or as a batch.</p>
+    <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+      <span class="inline-flex items-center gap-1.5 bg-emerald-400/10 text-emerald-300 border border-emerald-400/30 rounded-full px-3 py-1 text-xs font-semibold">✦ Unlimited Free Usage</span>
+      <span class="inline-flex bg-white/5 border border-white/10 rounded-full px-3 py-1 text-xs text-slate-300">No signup · No watermark · 100% in-browser</span>
+    </div>
+  </section>
+
+  <!-- CONVERTER STAGE -->
+  <section class="rounded-3xl border border-blue-500/25 bg-[#0b1224] overflow-hidden shadow-2xl shadow-blue-950/50">
+    <div class="stage-grid px-4 sm:px-6 py-3 border-b border-white/5 flex flex-wrap gap-2 items-center justify-between">
+      <div class="flex gap-2" role="tablist" aria-label="Input mode">
+        <button id="tabPaste" class="px-3 py-1.5 rounded-full text-sm font-semibold bg-blue-600 text-white">Paste code</button>
+        <button id="tabUpload" class="px-3 py-1.5 rounded-full text-sm font-semibold bg-white/5 text-slate-300 border border-white/10">Upload file</button>
+        <button id="loadSampleBtn" class="px-3 py-1.5 rounded-full text-sm bg-white/5 text-cyan-300 border border-cyan-400/30">Try a sample</button>
+      </div>
+      <p id="sourceInfo" class="text-xs text-slate-400">No artwork loaded yet</p>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-0">
+      <!-- LEFT: input + queue -->
+      <div class="lg:col-span-2 p-4 sm:p-6 border-b lg:border-b-0 lg:border-r border-white/5 space-y-4">
+        <div id="pastePane">
+          <label for="svgInput" class="text-sm font-semibold text-white">Paste SVG code</label>
+          <textarea id="svgInput" rows="9" spellcheck="false" placeholder="Paste your &lt;svg ...&gt; code here…" class="mt-2 w-full rounded-xl bg-[#070b16] border border-white/10 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/30 outline-none p-3 text-xs font-mono text-cyan-100 placeholder:text-slate-500"></textarea>
+          <div class="mt-2 flex gap-2">
+            <button id="useCodeBtn" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl py-2.5 text-sm">Use this code →</button>
+            <button id="clearBtn" class="px-4 rounded-xl border border-white/15 text-slate-300 hover:bg-white/5 text-sm">Clear</button>
+          </div>
+        </div>
+        <div id="uploadPane" class="hidden">
+          <label class="text-sm font-semibold text-white">Upload SVG files</label>
+          <div id="dropZone" class="mt-2 rounded-xl border-2 border-dashed border-blue-500/40 bg-blue-500/5 hover:bg-blue-500/10 transition p-6 text-center cursor-pointer">
+            <div class="text-3xl">⬆</div>
+            <p class="mt-2 text-sm text-slate-300 font-medium">Drop .svg files here or click to browse</p>
+            <p class="text-xs text-slate-500 mt-1">Up to 20 files · Max 5 MB each · Files stay on your device</p>
+            <input id="fileInput" type="file" accept=".svg,image/svg+xml" multiple class="hidden">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-white">Batch queue <span id="batchCount" class="text-cyan-300">(0)</span></h3>
+            <button id="clearQueueBtn" class="text-xs text-slate-400 hover:text-white">Clear queue</button>
+          </div>
+          <ul id="batchList" class="mt-2 space-y-2 text-sm"></ul>
+          <p id="batchEmpty" class="mt-2 text-xs text-slate-500 bg-white/[0.03] border border-white/5 rounded-xl p-3">Queue is empty. Paste code or upload files — every item you add can be converted together with the same size and background settings.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: settings + preview stage -->
+      <div class="lg:col-span-3 p-4 sm:p-6 space-y-5">
+        <div>
+          <h3 class="text-sm font-semibold text-white">Scale presets</h3>
+          <div id="presetRow" class="mt-2 flex flex-wrap gap-2">
+            <button data-preset="original" class="preset-btn active text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">Original 1×</button>
+            <button data-preset="half" class="preset-btn text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">0.5×</button>
+            <button data-preset="double" class="preset-btn text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">2× Retina</button>
+            <button data-preset="triple" class="preset-btn text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">3×</button>
+            <button data-preset="quad" class="preset-btn text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">4×</button>
+            <button data-preset="icon-512" class="preset-btn text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">Icon 512</button>
+            <button data-preset="icon-256" class="preset-btn text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">Icon 256</button>
+            <button data-preset="icon-64" class="preset-btn text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">Icon 64</button>
+            <button data-preset="thumb-512" class="preset-btn text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">Thumbnail ≤512</button>
+            <button data-preset="social-1200" class="preset-btn text-xs px-3 py-2 rounded-lg border border-white/15 bg-white/5">Social 1200×630</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div><label for="widthInput" class="text-xs text-slate-400 font-medium">Width (px)</label><input id="widthInput" type="number" min="1" max="8192" placeholder="e.g. 800" class="mt-1 w-full rounded-xl bg-[#070b16] border border-white/10 focus:border-cyan-400 outline-none px-3 py-2.5 text-white"></div>
+          <div><label for="heightInput" class="text-xs text-slate-400 font-medium">Height (px)</label><input id="heightInput" type="number" min="1" max="8192" placeholder="e.g. 600" class="mt-1 w-full rounded-xl bg-[#070b16] border border-white/10 focus:border-cyan-400 outline-none px-3 py-2.5 text-white"></div>
+          <div><label for="bgSelect" class="text-xs text-slate-400 font-medium">Background</label>
+            <select id="bgSelect" class="mt-1 w-full rounded-xl bg-[#070b16] border border-white/10 px-3 py-2.5 text-white"><option value="transparent">Transparent</option><option value="white">White</option><option value="black">Black</option><option value="custom">Custom colour</option></select></div>
+          <div><label for="bgColor" class="text-xs text-slate-400 font-medium">Custom colour</label><input id="bgColor" type="color" value="#2563eb" class="mt-1 w-full h-[42px] rounded-xl bg-[#070b16] border border-white/10 px-1 cursor-pointer"></div>
+        </div>
+        <label class="flex items-center gap-2 text-sm text-slate-300"><input id="lockAspect" type="checkbox" checked class="w-4 h-4 accent-blue-500"> Lock aspect ratio <span class="text-slate-500 text-xs">— custom sizes scale proportionally, never stretched</span></label>
+
+        <div>
+          <div class="flex items-center justify-between mb-2"><h3 class="text-sm font-semibold text-white">Preview stage <span class="text-slate-500 font-normal">— transparency checkerboard</span></h3><span id="outputInfo" class="text-xs text-cyan-300"></span></div>
+          <div id="previewStage" class="checker rounded-2xl min-h-[260px] flex items-center justify-center p-6 overflow-auto border border-white/10">
+            <div id="emptyState" class="text-center text-slate-400"><div class="text-4xl mb-2">◇</div><p class="text-sm font-medium text-slate-300">Your artwork will appear here</p><p class="text-xs mt-1 max-w-xs">Transparent areas show the checkerboard. Solid backgrounds replace it in the exported PNG.</p></div>
+            <img id="previewImg" alt="SVG preview" class="hidden max-w-full max-h-[380px] drop-shadow-2xl">
+          </div>
+        </div>
+
+        <p id="statusMsg" class="hidden text-sm rounded-xl px-4 py-3"></p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button id="convertBtn" class="flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-xl py-3.5">Convert to PNG</button>
+          <button id="downloadBtn" disabled class="flex-1 rounded-xl py-3.5 font-bold bg-white/5 border border-white/15 text-slate-400 disabled:opacity-60">Download PNG</button>
+          <button id="convertAllBtn" class="flex-1 rounded-xl py-3.5 font-bold bg-white/5 border border-cyan-400/40 text-cyan-200 hover:bg-cyan-400/10">Convert all in queue</button>
+        </div>
+        <p id="resultInfo" class="text-xs text-slate-400"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid sm:grid-cols-3 gap-4 mt-6 text-sm">
+    <div class="rounded-2xl bg-white/[0.03] border border-white/5 p-5"><h3 class="font-display font-semibold text-white">Exact pixel control</h3><p class="text-slate-400 mt-1">Type any width or height up to 8192 px, or tap a preset. Locked ratios keep logos and illustrations perfectly proportioned.</p></div>
+    <div class="rounded-2xl bg-white/[0.03] border border-white/5 p-5"><h3 class="font-display font-semibold text-white">Honest transparency</h3><p class="text-slate-400 mt-1">The checkerboard stage never lies: what looks transparent here stays transparent in the PNG, with a full alpha channel.</p></div>
+    <div class="rounded-2xl bg-white/[0.03] border border-white/5 p-5"><h3 class="font-display font-semibold text-white">Batch without the busywork</h3><p class="text-slate-400 mt-1">Queue a whole icon set or logo family, apply one export recipe, and convert everything in a single pass.</p></div>
+  </section>
+
+  <article id="seo-article" class="mt-12 prose prose-invert max-w-none bg-white/[0.02] border border-white/5 rounded-3xl p-6 sm:p-10 text-slate-300 leading-relaxed">
+    <h2 class="font-display text-3xl font-bold text-white">SVG to PNG Conversion, Explained Properly</h2>
+    <p>Scalable Vector Graphics and Portable Network Graphics solve two different problems, and understanding that difference is the key to getting a clean export every time. An SVG file does not store pixels at all. It stores instructions: paths, shapes, gradients, text and transformations written as XML code that a browser or design program redraws from scratch whenever the graphic is displayed. Because the artwork is redrawn mathematically, an SVG logo looks identical whether it is rendered at sixteen pixels tall for a browser tab or sixteen feet tall for an exhibition banner. A PNG, by contrast, stores a fixed grid of pixels with colour and transparency information for every cell in that grid. Once that grid is created, its resolution is fixed. Enlarge a small PNG and the software has to invent the in-between pixels, which is why undersized raster images look soft or blocky. Converting SVG to PNG is therefore an act of translation: you choose the exact moment, and the exact size, at which flexible mathematics becomes fixed pixels.</p>
+    <p>That choice of size is the single most important decision in any vector-to-raster export, and it is where most online converters quietly let people down. A converter that only offers the original size forces you to accept whatever dimensions the file author happened to type into the document, which might be a tiny 24-pixel icon canvas or an enormous artboard meant for print. Vectra treats size as a first-class control. You can keep the original dimensions, scale proportionally with the familiar half, double, triple and quadruple presets, jump straight to standard icon sizes, fit artwork inside a thumbnail or high-definition ceiling, use the social sharing canvas, or type any custom width and height up to 8192 pixels. When the aspect ratio is locked, changing one dimension recalculates the other from the true proportions of the artwork, so circles stay circular and wordmarks are never stretched. When you deliberately unlock the ratio, you can force an exact canvas for layouts that demand one, understanding that the artwork itself will be fitted to that canvas.</p>
+    <h3 class="font-display text-xl font-semibold text-white mt-8">Why PNG remains the universal delivery format</h3>
+    <p>Designers love SVG, but the wider world still runs on PNG. Content management systems, presentation software, email builders, document editors, app-store listing pages, game engines and countless upload forms either reject SVG outright or handle it inconsistently. Some platforms strip scripts and external references from uploaded vectors for security, which can break artwork that looked perfect on your machine. Others rasterise vectors automatically at an unknown size, handing you a blurry result you cannot control. Exporting a PNG yourself removes that uncertainty. You decide the pixel dimensions, the background treatment and the final file, and every downstream platform displays exactly what you approved. PNG also supports lossless compression and a full alpha channel, so flat illustrations, icons, logos and interface graphics stay crisp and can sit cleanly on photographs, coloured sections and patterned backgrounds without a white box around them.</p>
+    <p>Transparency deserves special attention because it is invisible until it goes wrong. In a typical preview with a white background, you cannot tell whether the empty space around a logo is genuinely transparent or simply painted white, and the difference only appears when the image is placed on a dark header or a coloured card. That is why Vectra previews your artwork on a classic checkerboard stage, the same convention used by professional image editors for decades. Grey and dark squares show through only where the artwork lets them, so transparent regions, semi-transparent gradients and soft drop shadows are all visible before you export. Leaving the background set to Transparent preserves the alpha channel exactly as authored. Switching to white, black or a custom colour bakes a solid backdrop into the file instead, which is useful for marketplace thumbnails, presentation slides and platforms that flatten transparency unpredictably.</p>
+    <h3 class="font-display text-xl font-semibold text-white mt-8">Retina, icons and the two-times rule</h3>
+    <p>Modern displays pack far more pixels into each inch than the screens PNG workflows were designed for. A logo that occupies 200 by 80 screen units on a retina laptop or a flagship phone may actually be painted with 400 by 160 or even 600 by 240 physical pixels. Supply the smaller file and the device scales it up, softening edges that were razor sharp in the vector original. The practical fix is simple: export larger than the slot the image will fill. The double preset exists precisely for this, and the triple preset covers the densest phone displays and gives presenters comfortable headroom when a slide is projected full-screen. App and website icons follow the opposite logic, demanding many small, exact sizes from one master artwork: 16, 32, 64, 128, 256 and 512 pixels are the sizes that recur across favicons, touch icons, application bundles and store listings. Dedicated icon presets remove the repetitive typing and the risk of a typo in one size of a matched set.</p>
+    <p>Batch conversion exists because real projects rarely involve a single file. An identity project delivers a primary logo, a stacked version, a monochrome version and a favicon from the same drawing session. An icon library may hold dozens of symbols that must all ship at identical dimensions with identical background treatment. Converting those files one at a time, re-entering the same settings and renaming each output by hand, wastes time and invites inconsistency: one file exported at the wrong scale can slip through review unnoticed. Queuing the whole set in Vectra, applying one shared recipe for size and background, and converting in a single pass guarantees uniformity. Each output is named from its source file plus its exported dimensions, so a folder of results reads clearly at a glance and sorts predictably in any asset pipeline.</p>
+    <h3 class="font-display text-xl font-semibold text-white mt-8">Getting sharp results: a practical checklist</h3>
+    <p>Sharp exports start before conversion. First, confirm the source SVG declares a viewBox. The viewBox is the coordinate system that tells any renderer how the drawing is proportioned; files exported from major design tools include one automatically, but hand-written or heavily optimised vectors occasionally omit it, forcing browsers to guess. If a preview looks cropped or oddly padded, opening the code and checking for a viewBox alongside width and height attributes is the fastest diagnosis. Second, convert text thoughtfully: lettering drawn as live text depends on fonts being available at render time, while lettering converted to outlines travels safely anywhere. For maximum fidelity across machines, outline display type in your design tool before exporting the SVG. Third, match the export to the destination: social platforms recompress uploads aggressively, so supplying the recommended canvas size avoids a second, uncontrolled resampling. Fourth, keep the vector master forever. A PNG cannot be turned back into a true vector, so the SVG remains the editable source of truth and the PNG is simply a delivery copy at a chosen size.</p>
+    <p>File size is the other side of the resolution coin. Doubling dimensions quadruples the pixel count, and complex gradients, filters and embedded textures can produce surprisingly heavy PNG files. That weight matters for page speed, email limits and app bundle sizes. The sensible workflow is to export at the largest size any destination genuinely needs, check the resulting file weight shown after conversion, and step down a preset if the image will only ever appear small. Because PNG compression is lossless, a smaller canvas is the honest way to save bytes; there is no quality slider quietly degrading your artwork. For photographic content, other formats may compress more aggressively, but for the flat colour, sharp edge world that SVG artwork inhabits, PNG remains the faithful choice that never introduces compression artefacts around edges and text.</p>
+    <h3 class="font-display text-xl font-semibold text-white mt-8">Privacy and the case for browser-side conversion</h3>
+    <p>Logos under embargo, client artwork under contract and internal interface mock-ups are not files anyone should casually upload to a stranger's server. Traditional converter websites work by receiving your file, processing it on remote infrastructure and offering the result for download, which means a copy of your artwork existed, however briefly, outside your control. Vectra takes the opposite approach: the entire conversion happens locally, using the rendering engine already inside your browser. Your code and files never leave the device, nothing is logged or stored, and the tool keeps working predictably without accounts or queues. That architecture also makes conversion effectively instant for typical artwork, since there is no upload wait and no shared server line ahead of you. For freelancers handling client brands, teams prototyping unreleased products and anyone working on a restricted network, that combination of privacy and immediacy is not a minor convenience; it is the difference between a tool that can be used for real work and one that cannot.</p>
+    <p>Whether you are preparing a single logo for a pitch deck, exporting a complete icon family for a product launch, or generating sharing images for a website, the principles stay constant: start from the vector, choose dimensions deliberately, verify transparency visually, and keep the master file safe. Vectra gathers those steps onto one stage — paste or upload, preset or custom size, checkerboard preview, single or batch export — so the routine conversion that projects depend on takes seconds instead of becoming a small project of its own.</p>
+
+    <h3 class="font-display text-2xl font-bold text-white mt-10">Frequently Asked Questions</h3>
+    <div class="space-y-3 mt-4 not-prose">
+      <details class="faq-item bg-[#0b1224] border border-white/10 rounded-2xl p-4"><summary class="font-semibold text-white">What is an SVG file and why convert it to PNG?</summary><p class="mt-2 text-slate-400 text-sm">An SVG is a vector graphic described with XML code, so it stays sharp at any size. A PNG is a raster image made of pixels. You convert SVG to PNG when a platform, document, presentation or app needs a fixed-size pixel image instead of vector code — for example app icons, social previews, slides and email graphics.</p></details>
+      <details class="faq-item bg-[#0b1224] border border-white/10 rounded-2xl p-4"><summary class="font-semibold text-white">Does Vectra upload my SVG files anywhere?</summary><p class="mt-2 text-slate-400 text-sm">No. Vectra converts entirely in your browser. Your SVG code and files are never sent to a server, which makes the tool private, fast and suitable for logos, client work and unreleased artwork.</p></details>
+      <details class="faq-item bg-[#0b1224] border border-white/10 rounded-2xl p-4"><summary class="font-semibold text-white">How do I choose the right output size for my PNG?</summary><p class="mt-2 text-slate-400 text-sm">Use 1x for matching the original size, 2x or 3x for crisp retina and presentation use, and the icon presets for app icons and favicons. For print-like sharpness or large banners, choose a larger custom width and keep the aspect ratio locked so the artwork is not stretched.</p></details>
+      <details class="faq-item bg-[#0b1224] border border-white/10 rounded-2xl p-4"><summary class="font-semibold text-white">Can I preserve transparency in the exported PNG?</summary><p class="mt-2 text-slate-400 text-sm">Yes. Leave the background set to Transparent and Vectra keeps the alpha channel from your SVG. The checkerboard preview shows exactly which areas will stay transparent. Choose White, Black or a custom colour only when you want a solid background baked into the PNG.</p></details>
+      <details class="faq-item bg-[#0b1224] border border-white/10 rounded-2xl p-4"><summary class="font-semibold text-white">Can I convert multiple SVG files at once?</summary><p class="mt-2 text-slate-400 text-sm">Yes. Upload up to 20 SVG files and they appear in the batch queue. Apply one size and background setting to the whole batch, convert all of them with a single click, then download each PNG individually or step through the queue.</p></details>
+      <details class="faq-item bg-[#0b1224] border border-white/10 rounded-2xl p-4"><summary class="font-semibold text-white">Why does my converted PNG look blurry or pixelated?</summary><p class="mt-2 text-slate-400 text-sm">Blur almost always means the export size is too small for how large the image is being displayed. Re-export at 2x, 3x or a larger custom width. Also check that the original SVG has a viewBox, because without one the browser has to guess the artwork size.</p></details>
+    </div>
+  </article>
+</main>
+
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="464498"></script>
+    </div>
+  </div>
+</div>
+
+<footer class="border-t border-white/5 py-8 text-center text-xs text-slate-500 px-4">Vectra — free SVG to PNG converter. Your files never leave your browser.</footer>
+
+<script id="lib-vectra">/* VectraLib - pure logic for SVG to PNG conversion. No DOM. */
+var VectraLib = (function () {
+  'use strict';
+  var MAX_DIM = 8192;
+  var MIN_DIM = 1;
+  var MAX_SVG_BYTES = 5 * 1024 * 1024;
+  var MAX_BATCH = 20;
+
+  function clampDimension(v) {
+    var n = Math.round(Number(v));
+    if (!isFinite(n) || isNaN(n)) return 0;
+    if (n < MIN_DIM) return MIN_DIM;
+    if (n > MAX_DIM) return MAX_DIM;
+    return n;
+  }
+  function isValidDimension(v) {
+    var n = Number(v);
+    return isFinite(n) && n >= MIN_DIM && n <= MAX_DIM;
+  }
+  function parseNumberAttr(str) {
+    if (str == null) return null;
+    var m = String(str).trim().match(/^(-?[\d.]+)/);
+    if (!m) return null;
+    var n = parseFloat(m[1]);
+    return isFinite(n) && n > 0 ? n : null;
+  }
+  function parseViewBox(str) {
+    if (!str) return null;
+    var parts = String(str).trim().split(/[\s,]+/).map(function (x) { return parseFloat(x); }).filter(function (x) { return isFinite(x); });
+    if (parts.length !== 4) return null;
+    if (parts[2] <= 0 || parts[3] <= 0) return null;
+    return { minX: parts[0], minY: parts[1], width: parts[2], height: parts[3] };
+  }
+  function parseDimensions(svgText) {
+    var result = { width: null, height: null, viewBox: null, hasWidth: false, hasHeight: false };
+    if (!svgText || typeof svgText !== 'string') return result;
+    var tagMatch = svgText.match(/<svg\b[^>]*>/i);
+    if (!tagMatch) return result;
+    var tag = tagMatch[0];
+    function attr(name) {
+      var re = new RegExp(name + '\\s*=\\s*"([^"]*)"|'+ name + "\\s*=\\s*'([^']*)'", 'i');
+      var mm = tag.match(re);
+      if (!mm) return null;
+      return mm[1] != null ? mm[1] : mm[2];
+    }
+    var wRaw = attr('width');
+    var hRaw = attr('height');
+    var vbRaw = attr('viewBox');
+    var vb = parseViewBox(vbRaw);
+    result.viewBox = vb;
+    var w = parseNumberAttr(wRaw);
+    var h = parseNumberAttr(hRaw);
+    result.hasWidth = w !== null;
+    result.hasHeight = h !== null;
+    if (w !== null) result.width = w;
+    if (h !== null) result.height = h;
+    if (result.width === null && result.height === null && vb) { result.width = vb.width; result.height = vb.height; }
+    else if (result.width !== null && result.height === null && vb) result.height = Math.round(result.width * vb.height / vb.width * 100) / 100;
+    else if (result.height !== null && result.width === null && vb) result.width = Math.round(result.height * vb.width / vb.height * 100) / 100;
+    return result;
+  }
+  function validateSVG(svgText) {
+    var errors = [];
+    if (!svgText || typeof svgText !== 'string' || svgText.trim() === '') {
+      return { valid: false, errors: ['SVG content is empty. Paste SVG code or upload an .svg file.'] };
+    }
+    if (svgText.length > MAX_SVG_BYTES) errors.push('SVG is larger than 5 MB. Try a smaller file.');
+    if (!/<svg\b/i.test(svgText)) errors.push('No <svg> element found. This does not look like an SVG file.');
+    if (!/<\/svg\s*>|<svg\b[^>]*\/>/i.test(svgText) && /<svg\b/i.test(svgText)) errors.push('The <svg> element is not closed properly.');
+    if (errors.length) return { valid: false, errors: errors };
+    var dims = parseDimensions(svgText);
+    if (!dims.width || !dims.height) {
+      return { valid: false, errors: ['Could not determine the SVG size. Add a viewBox or width and height attributes to the SVG.'] };
+    }
+    return { valid: true, errors: [] };
+  }
+  function computeOutputSize(opts) {
+    opts = opts || {};
+    var srcW = Number(opts.srcW) || 300;
+    var srcH = Number(opts.srcH) || 150;
+    if (srcW <= 0) srcW = 300;
+    if (srcH <= 0) srcH = 150;
+    var mode = opts.mode || 'scale';
+    var lock = opts.lockAspect !== false;
+    if (mode === 'custom') {
+      var cw = Number(opts.customW);
+      var ch = Number(opts.customH);
+      var hasW = isFinite(cw) && cw > 0;
+      var hasH = isFinite(ch) && ch > 0;
+      if (hasW && hasH) {
+        if (lock) { return { width: clampDimension(cw), height: clampDimension(cw * srcH / srcW) }; }
+        return { width: clampDimension(cw), height: clampDimension(ch) };
+      }
+      if (hasW) return { width: clampDimension(cw), height: clampDimension(cw * srcH / srcW) };
+      if (hasH) return { width: clampDimension(ch * srcW / srcH), height: clampDimension(ch) };
+      return { width: clampDimension(srcW), height: clampDimension(srcH) };
+    }
+    var scale = Number(opts.scale);
+    if (!isFinite(scale) || scale <= 0) scale = 1;
+    if (scale > 32) scale = 32;
+    return { width: clampDimension(srcW * scale), height: clampDimension(srcH * scale) };
+  }
+  var PRESETS = {
+    'original': { label: 'Original (1x)', type: 'scale', scale: 1 },
+    'half': { label: 'Half (0.5x)', type: 'scale', scale: 0.5 },
+    'double': { label: 'Double (2x)', type: 'scale', scale: 2 },
+    'triple': { label: 'Triple (3x)', type: 'scale', scale: 3 },
+    'quad': { label: 'Quad (4x)', type: 'scale', scale: 4 },
+    'icon-16': { label: 'Icon 16', type: 'fixed', width: 16, height: 16 },
+    'icon-32': { label: 'Icon 32', type: 'fixed', width: 32, height: 32 },
+    'icon-64': { label: 'Icon 64', type: 'fixed', width: 64, height: 64 },
+    'icon-128': { label: 'Icon 128', type: 'fixed', width: 128, height: 128 },
+    'icon-256': { label: 'Icon 256', type: 'fixed', width: 256, height: 256 },
+    'icon-512': { label: 'Icon 512', type: 'fixed', width: 512, height: 512 },
+    'thumb-512': { label: 'Thumbnail (max 512)', type: 'fit', max: 512 },
+    'hd-1280': { label: 'HD (max 1280)', type: 'fit', max: 1280 },
+    'social-1200': { label: 'Social 1200 x 630', type: 'fixed', width: 1200, height: 630 }
+  };
+  function listPresets() { return Object.keys(PRESETS); }
+  function resolvePreset(presetId, srcW, srcH) {
+    var p = PRESETS[presetId];
+    srcW = Number(srcW) || 300; srcH = Number(srcH) || 150;
+    if (!p) return computeOutputSize({ srcW: srcW, srcH: srcH, mode: 'scale', scale: 1 });
+    if (p.type === 'scale') return computeOutputSize({ srcW: srcW, srcH: srcH, mode: 'scale', scale: p.scale });
+    if (p.type === 'fixed') return { width: clampDimension(p.width), height: clampDimension(p.height) };
+    if (p.type === 'fit') {
+      var longest = Math.max(srcW, srcH);
+      var s = p.max / longest;
+      return { width: clampDimension(srcW * s), height: clampDimension(srcH * s) };
+    }
+    return { width: clampDimension(srcW), height: clampDimension(srcH) };
+  }
+  function sanitizeFileName(name) {
+    if (!name || typeof name !== 'string') return 'vectra-export';
+    var base = name.replace(/\.svg$/i, '').replace(/\.png$/i, '').trim();
+    base = base.replace(/[^a-zA-Z0-9-_]+/g, '-').replace(/^-+|-+$/g, '').replace(/-+/g, '-');
+    if (!base) return 'vectra-export';
+    return base.slice(0, 60);
+  }
+  function outputFileName(originalName, width, height) {
+    return sanitizeFileName(originalName) + '-' + Math.round(width) + 'x' + Math.round(height) + '.png';
+  }
+  function formatBytes(bytes) {
+    var n = Number(bytes);
+    if (!isFinite(n) || n < 0) return '0 B';
+    if (n < 1024) return Math.round(n) + ' B';
+    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+    return (n / (1024 * 1024)).toFixed(2) + ' MB';
+  }
+  function ensureSvgSize(svgText, outW, outH) {
+    if (!svgText) return svgText;
+    var w = clampDimension(outW); var h = clampDimension(outH);
+    return svgText.replace(/<svg\b([^>]*)>/i, function (full, attrs) {
+      var cleaned = attrs.replace(/\s+width\s*=\s*"[^"]*"/gi, '').replace(/\s+width\s*=\s*'[^']*'/gi, '').replace(/\s+height\s*=\s*"[^"]*"/gi, '').replace(/\s+height\s*=\s*'[^']*'/gi, '');
+      return '<svg' + cleaned + ' width="' + w + '" height="' + h + '" xmlns="http://www.w3.org/2000/svg">';
+    });
+  }
+  function normalizeBackground(value) {
+    if (!value || value === 'transparent') return { mode: 'transparent', color: null };
+    if (value === 'white') return { mode: 'solid', color: '#ffffff' };
+    if (value === 'black') return { mode: 'solid', color: '#000000' };
+    if (/^#[0-9a-fA-F]{6}$/.test(value)) return { mode: 'solid', color: value.toLowerCase() };
+    if (/^#[0-9a-fA-F]{3}$/.test(value)) {
+      var hex = value.slice(1).split('').map(function (c) { return c + c; }).join('');
+      return { mode: 'solid', color: '#' + hex.toLowerCase() };
+    }
+    return { mode: 'transparent', color: null };
+  }
+  function validateBatchCount(count) {
+    var n = Number(count) || 0;
+    return { ok: n >= 1 && n <= MAX_BATCH, count: n, max: MAX_BATCH };
+  }
+  return {
+    MAX_DIM: MAX_DIM, MIN_DIM: MIN_DIM, MAX_BATCH: MAX_BATCH, MAX_SVG_BYTES: MAX_SVG_BYTES,
+    clampDimension: clampDimension, isValidDimension: isValidDimension,
+    parseViewBox: parseViewBox, parseDimensions: parseDimensions,
+    validateSVG: validateSVG, computeOutputSize: computeOutputSize,
+    PRESETS: PRESETS, listPresets: listPresets, resolvePreset: resolvePreset,
+    sanitizeFileName: sanitizeFileName, outputFileName: outputFileName,
+    formatBytes: formatBytes, ensureSvgSize: ensureSvgSize,
+    normalizeBackground: normalizeBackground, validateBatchCount: validateBatchCount
+  };
+})();
+if (typeof module !== 'undefined' && module.exports) { module.exports = VectraLib; }
+</script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var queue=[]; var uid=0; var currentId=null; var lastBlob=null; var lastName='vectra-export.png';
+  var SAMPLE='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs><rect x="20" y="20" width="200" height="200" rx="48" fill="url(#g)"/><path d="M70 75 L120 170 L170 75 L148 75 L120 132 L92 75 Z" fill="#ffffff"/><circle cx="120" cy="188" r="9" fill="#ffffff" opacity="0.9"/></svg>';
+  var SAMPLE2='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"><circle cx="100" cy="100" r="82" fill="none" stroke="#38bdf8" stroke-width="10"/><path d="M100 42 L118 84 L164 86 L128 114 L140 160 L100 134 L60 160 L72 114 L36 86 L82 84 Z" fill="#facc15"/></svg>';
+  function showStatus(msg,ok){var el=$('statusMsg');el.classList.remove('hidden');el.textContent=msg;el.style.background=ok?'rgba(16,185,129,.12)':'rgba(239,68,68,.12)';el.style.color=ok?'#6ee7b7':'#fca5a5';el.style.border='1px solid '+(ok?'rgba(16,185,129,.3)':'rgba(239,68,68,.3)');}
+  function hideStatus(){$('statusMsg').classList.add('hidden');}
+  function currentItem(){for(var i=0;i<queue.length;i++){if(queue[i].id===currentId)return queue[i];}return queue[0]||null;}
+  function getBg(){var v=$('bgSelect').value;if(v==='custom')return VectraLib.normalizeBackground($('bgColor').value);return VectraLib.normalizeBackground(v);}
+  function getOutputSize(item){
+    var dims=VectraLib.parseDimensions(item.svgText);
+    var cw=parseFloat($('widthInput').value),ch=parseFloat($('heightInput').value);
+    if(isFinite(cw)&&cw>0||isFinite(ch)&&ch>0){return VectraLib.computeOutputSize({srcW:dims.width,srcH:dims.height,mode:'custom',customW:cw,customH:ch,lockAspect:$('lockAspect').checked});}
+    var active=document.querySelector('.preset-btn.active');var pid=active?active.getAttribute('data-preset'):'original';
+    return VectraLib.resolvePreset(pid,dims.width,dims.height);
+  }
+  function renderQueue(){
+    $('batchCount').textContent='('+queue.length+')';
+    $('batchEmpty').style.display=queue.length?'none':'block';
+    var ul=$('batchList');ul.innerHTML='';
+    queue.forEach(function(it){
+      var dims=VectraLib.parseDimensions(it.svgText);
+      var li=document.createElement('li');
+      li.className='flex items-center gap-2 rounded-xl border px-3 py-2 '+(it.id===currentId?'border-cyan-400/50 bg-cyan-400/10':'border-white/10 bg-white/[0.03]');
+      var info=it.status==='done'?'PNG ready · '+VectraLib.formatBytes(it.pngSize||0):(dims.width?Math.round(dims.width)+'×'+Math.round(dims.height):'unknown size');
+      li.innerHTML='<button class="flex-1 text-left min-w-0"><span class="block truncate text-slate-100 font-medium"></span><span class="block text-xs text-slate-400"></span></button>';
+      li.querySelectorAll('span')[0].textContent=it.name;li.querySelectorAll('span')[1].textContent=info;
+      li.querySelector('button').addEventListener('click',function(){selectItem(it.id);});
+      if(it.status==='done'){var d=document.createElement('button');d.textContent='Download';d.className='text-xs bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-2.5 py-1.5 shrink-0';d.addEventListener('click',function(){downloadItem(it);});li.appendChild(d);}
+      var x=document.createElement('button');x.textContent='✕';x.className='text-slate-500 hover:text-white px-1 shrink-0';x.setAttribute('aria-label','Remove');x.addEventListener('click',function(){queue=queue.filter(function(q){return q.id!==it.id;});if(currentId===it.id)currentId=queue.length?queue[0].id:null;renderQueue();refreshPreview();});li.appendChild(x);
+      ul.appendChild(li);
+    });
+  }
+  function selectItem(id){currentId=id;var it=currentItem();if(it){$('svgInput').value=it.svgText;}renderQueue();refreshPreview();}
+  function refreshPreview(){
+    var it=currentItem();var img=$('previewImg');var empty=$('emptyState');
+    if(!it){img.classList.add('hidden');empty.classList.remove('hidden');$('sourceInfo').textContent='No artwork loaded yet';$('outputInfo').textContent='';return;}
+    var dims=VectraLib.parseDimensions(it.svgText);
+    $('sourceInfo').textContent=it.name+' · source '+(dims.width?Math.round(dims.width)+' × '+Math.round(dims.height)+' px':'unknown');
+    var blob=new Blob([it.svgText],{type:'image/svg+xml;charset=utf-8'});var url=URL.createObjectURL(blob);
+    img.onload=function(){URL.revokeObjectURL(url);};img.src=url;img.classList.remove('hidden');empty.classList.add('hidden');
+    var out=getOutputSize(it);$('outputInfo').textContent='Output: '+out.width+' × '+out.height+' px';
+    var bg=getBg();$('previewStage').className=(bg.mode==='transparent'?'checker':'')+' rounded-2xl min-h-[260px] flex items-center justify-center p-6 overflow-auto border border-white/10';
+    if(bg.mode==='solid'){$('previewStage').style.background=bg.color;}else{$('previewStage').style.background='';}
+  }
+  function addToQueue(name,svgText){
+    var v=VectraLib.validateSVG(svgText);if(!v.valid){showStatus(v.errors[0],false);return false;}
+    if(!VectraLib.validateBatchCount(queue.length+1).ok){showStatus('Batch limit reached: up to '+VectraLib.MAX_BATCH+' files at a time.',false);return false;}
+    var it={id:++uid,name:name,svgText:svgText,status:'ready',pngBlob:null,pngUrl:null,pngSize:0};
+    queue.push(it);if(!currentId)currentId=it.id;renderQueue();return true;
+  }
+  function svgToPng(item){
+    return new Promise(function(resolve,reject){
+      var out=getOutputSize(item);var bg=getBg();
+      var sized=VectraLib.ensureSvgSize(item.svgText,out.width,out.height);
+      var blob=new Blob([sized],{type:'image/svg+xml;charset=utf-8'});var url=URL.createObjectURL(blob);
+      var img=new Image();
+      img.onload=function(){
+        try{var c=document.createElement('canvas');c.width=out.width;c.height=out.height;var ctx=c.getContext('2d');
+        if(bg.mode==='solid'){ctx.fillStyle=bg.color;ctx.fillRect(0,0,c.width,c.height);}
+        ctx.drawImage(img,0,0,out.width,out.height);URL.revokeObjectURL(url);
+        c.toBlob(function(b){if(!b){reject(new Error('Export failed. Try a smaller size.'));return;}resolve({blob:b,width:out.width,height:out.height});},'image/png');
+        }catch(e){reject(e);}
+      };
+      img.onerror=function(){URL.revokeObjectURL(url);reject(new Error('This SVG could not be rendered. Check that it has a viewBox and no external image references.'));};
+      img.src=url;
+    });
+  }
+  function downloadItem(it){if(!it.pngUrl)return;var a=document.createElement('a');a.href=it.pngUrl;a.download=VectraLib.outputFileName(it.name,it.outW,it.outH);document.body.appendChild(a);a.click();a.remove();}
+  // Tabs
+  $('tabPaste').addEventListener('click',function(){$('pastePane').classList.remove('hidden');$('uploadPane').classList.add('hidden');$('tabPaste').className='px-3 py-1.5 rounded-full text-sm font-semibold bg-blue-600 text-white';$('tabUpload').className='px-3 py-1.5 rounded-full text-sm font-semibold bg-white/5 text-slate-300 border border-white/10';});
+  $('tabUpload').addEventListener('click',function(){$('uploadPane').classList.remove('hidden');$('pastePane').classList.add('hidden');$('tabUpload').className='px-3 py-1.5 rounded-full text-sm font-semibold bg-blue-600 text-white';$('tabPaste').className='px-3 py-1.5 rounded-full text-sm font-semibold bg-white/5 text-slate-300 border border-white/10';});
+  $('loadSampleBtn').addEventListener('click',function(){queue=[];currentId=null;addToQueue('vectra-badge.svg',SAMPLE);addToQueue('star-badge.svg',SAMPLE2);selectItem(queue[0].id);showStatus('Two sample artworks loaded. Pick a size and convert.',true);});
+  $('useCodeBtn').addEventListener('click',function(){var code=$('svgInput').value;if(addToQueue('pasted-svg.svg',code)){selectItem(queue[queue.length-1].id);showStatus('SVG code loaded. Preview updated — now choose a size and convert.',true);}});
+  $('clearBtn').addEventListener('click',function(){$('svgInput').value='';hideStatus();});
+  $('clearQueueBtn').addEventListener('click',function(){queue=[];currentId=null;lastBlob=null;$('downloadBtn').disabled=true;$('downloadBtn').className='flex-1 rounded-xl py-3.5 font-bold bg-white/5 border border-white/15 text-slate-400 disabled:opacity-60';$('resultInfo').textContent='';renderQueue();refreshPreview();});
+  // Presets
+  document.querySelectorAll('.preset-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.preset-btn').forEach(function(x){x.classList.remove('active');});b.classList.add('active');$('widthInput').value='';$('heightInput').value='';refreshPreview();});});
+  ['widthInput','heightInput','bgSelect','bgColor','lockAspect'].forEach(function(id){$(id).addEventListener('input',refreshPreview);$(id).addEventListener('change',refreshPreview);});
+  // Upload
+  var dz=$('dropZone'),fi=$('fileInput');
+  dz.addEventListener('click',function(){fi.click();});
+  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('border-cyan-400');});
+  dz.addEventListener('dragleave',function(){dz.classList.remove('border-cyan-400');});
+  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('border-cyan-400');handleFiles(e.dataTransfer.files);});
+  fi.addEventListener('change',function(){handleFiles(fi.files);fi.value='';});
+  function handleFiles(files){
+    if(!files||!files.length)return;var added=0;
+    Array.prototype.forEach.call(files,function(f){
+      if(!/\.svg$/i.test(f.name)&&f.type!=='image/svg+xml'){showStatus('Skipped "'+f.name+'" — only .svg files are supported.',false);return;}
+      if(f.size>VectraLib.MAX_SVG_BYTES){showStatus('Skipped "'+f.name+'" — larger than 5 MB.',false);return;}
+      var r=new FileReader();r.onload=function(){if(addToQueue(f.name,String(r.result))){added++;if(added===1)selectItem(queue[queue.length-1].id);else renderQueue();refreshPreview();showStatus('Added "'+f.name+'" to the queue.',true);}};r.readAsText(f);
+    });
+  }
+  // Convert single
+  $('convertBtn').addEventListener('click',function(){
+    var it=currentItem();if(!it){showStatus('Nothing to convert yet. Paste SVG code, load a sample, or upload a file first.',false);return;}
+    hideStatus();$('convertBtn').textContent='Converting…';
+    svgToPng(it).then(function(res){it.pngBlob=res.blob;it.outW=res.width;it.outH=res.height;it.pngSize=res.blob.size;if(it.pngUrl)URL.revokeObjectURL(it.pngUrl);it.pngUrl=URL.createObjectURL(res.blob);it.status='done';lastBlob=res.blob;lastName=VectraLib.outputFileName(it.name,res.width,res.height);
+      var db=$('downloadBtn');db.disabled=false;db.className='flex-1 rounded-xl py-3.5 font-bold bg-emerald-600 hover:bg-emerald-500 text-white';
+      $('resultInfo').textContent='Ready: '+lastName+' · '+res.width+' × '+res.height+' px · '+VectraLib.formatBytes(res.blob.size)+' · background: '+(getBg().mode==='transparent'?'transparent':getBg().color);
+      showStatus('Conversion complete. Your PNG is ready to download.',true);renderQueue();
+    }).catch(function(e){showStatus(e.message||'Conversion failed.',false);}).finally(function(){$('convertBtn').textContent='Convert to PNG';});
+  });
+  $('downloadBtn').addEventListener('click',function(){var it=currentItem();if(it&&it.pngUrl){downloadItem(it);}else if(lastBlob){var a=document.createElement('a');a.href=URL.createObjectURL(lastBlob);a.download=lastName;a.click();}});
+  // Convert all
+  $('convertAllBtn').addEventListener('click',function(){
+    if(!queue.length){showStatus('The queue is empty. Add at least one SVG first.',false);return;}
+    var btn=$('convertAllBtn');btn.textContent='Converting all…';var chain=Promise.resolve();var done=0;
+    queue.forEach(function(it){chain=chain.then(function(){return svgToPng(it).then(function(res){it.pngBlob=res.blob;it.outW=res.width;it.outH=res.height;it.pngSize=res.blob.size;if(it.pngUrl)URL.revokeObjectURL(it.pngUrl);it.pngUrl=URL.createObjectURL(res.blob);it.status='done';done++;renderQueue();});});});
+    chain.then(function(){showStatus('Batch complete: '+done+' of '+queue.length+' converted. Use the Download button on each queue item.',true);var it=currentItem();if(it){var db=$('downloadBtn');db.disabled=false;db.className='flex-1 rounded-xl py-3.5 font-bold bg-emerald-600 hover:bg-emerald-500 text-white';}}).catch(function(e){showStatus('Batch stopped: '+(e.message||'one file failed to render.'),false);}).finally(function(){btn.textContent='Convert all in queue';});
+  });
+  renderQueue();refreshPreview();
+})();
+</script>
+</body>
+</html>
